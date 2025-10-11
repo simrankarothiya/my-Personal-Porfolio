@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simran Navbar</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+      --accent-pink: #f490b6;
+      --accent-rose: #f399bd;
+      --bg-cream: #F8F8E1;
+      --accent-teal: #1c8694;
+      --text-color: #333333;
+      --card-bg: rgba(255, 255, 255, 0.8);
+    }
+     body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color: var(--text-color);
+  background: linear-gradient(135deg, #ffc1da 0%, #cdcda4 35%, #076c79 100%);
+  background-attachment: fixed;   /* keeps gradient stable on scroll */
+  background-size: cover;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: all 0.6s ease-in-out;
+}
+
+      /* Navbar */
+      .custom-navbar {
+        border-radius: 25px;
+        background: linear-gradient(120deg, #faaabc, #b8f0f0, #e5e59c, rgb(175, 175, 122));
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        margin: 30px 50px;
+      }
+
+      .custom-brand { color: white; font-family: cursive; font-weight: bold; font-size: 20px; }
+      .custom-link { color: white; margin: 0 8px; font-weight: bold; font-family: cursive; transition: all 0.3s; }
+      .custom-link:hover { color: #aee4ff; transform: scale(1.05); }
+      .theme-toggle { border: 2px solid white; color: white; background: transparent; cursor: pointer; padding: 5px 10px; border-radius: 10px; }
+      .theme-toggle:hover { background: rgba(255,255,255,0.2); }
+
+      /* Dark Mode */
+      body.dark-mode { background: linear-gradient(135deg, #0c2d2e 0%, #1a1a1a 50%, #340c22 100%); color: #f4f4f4; }
+      .dark-mode .custom-navbar { background: linear-gradient(120deg, #3b1f2b, #135259, #44442b, #2c2c1b); }
+      .dark-mode .custom-link { color: #dcdcdc; }
+
+      /* Hero Section */
+      .hero-section { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 50px 20px; }
+      .hero-text { flex: 1 1 300px; min-width: 250px; }
+
+      .hero-greeting { 
+        color: #df4b83; 
+        font-size: 3rem; 
+        font-weight: bold; 
+        margin-bottom: 10px; 
+        margin-left: 40px;
+      }
+      .hero-name { 
+        font-size: 2rem; 
+        font-weight: 800; 
+        margin-bottom: 15px; 
+        margin-left: 40px;
+      }
+      .hero-description { 
+        font-size: 1.2rem; 
+        line-height: 1.6; 
+        max-width: 100%; 
+        margin-left: 40px;
+      }
+      .visit-btn { 
+        margin-left: 40px; 
+        margin-top: 15px; 
+        border-radius: 20px;
+        color: #1a1a1a;
+        background-color: #f8c8dc;
+        cursor: pointer;
+        border: 2px solid #1a1a1a;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      .visit-btn:hover {
+        background-color: #d7f0fc;
+        border-color: #1a1a1a;
+        box-shadow: 0 8px 20px rgba(255,255,255,0.4), 0 8px 20px rgba(0,0,0,0.2);
+        transform: translateY(-3px);
+      }
+
+      body.dark-mode .visit-btn {
+        box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+        border-color:#df4b83;
+      }
+
+      body.dark-mode .visit-btn:hover {
+        box-shadow: 0 8px 20px rgba(255,255,255,0.3), 0 8px 20px rgba(0,0,0,0.2);
+      }
+
+      .hero-image { flex: 1 1 300px; max-width: 550px; width: 100%; border-radius: 20px; transition: transform 0.4s; }
+      .hero-image:hover { transform: scale(1.05); }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .hero-section { flex-direction: column; text-align: center; }
+        .hero-greeting, .hero-name, .hero-description, .visit-btn { margin-left: 0; }
+        .hero-greeting { font-size: 2.5rem; }
+        .hero-name { font-size: 1.8rem; }
+        .hero-description { font-size: 1.4rem; }
+        .hero-image { max-width: 60%; margin-top: 20px; }
+      }
+
+      @media (max-width: 576px) {
+        .hero-greeting { font-size: 2rem; }
+        .hero-name { font-size: 1.5rem; }
+        .hero-description { font-size: 0.9rem; }
+        .hero-image { max-width: 80%; }
+      }
+
+      #particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        background: transparent;
+      }
+
+      /* About Section */
+      .about-section {
+        padding: 60px 20px;
+        
+      }
+
+      .about-card {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 40px;
+        background: linear-gradient(135deg, #fce1e8, #b2f0e6);
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      }
+
+      .about-text {
+        flex:1 1 400px;
+        min-width: 250px;
+        padding-right: 20px;
+        color: #333;
+      }
+
+      .about-text h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+        width:100%;
+      }
+
+      .about-text p {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        font-weight: 800;}
+
+      .about-image {
+        flex:0 0 250px;
+        text-align:center;
+        margin-top: 20px;
+      }
+
+      .about-image img {
+        width:220px;
+        height:220px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      }
+
+      /* Dark Mode About */
+      body.dark-mode .about-card {
+        background: linear-gradient(135deg, #3b1f2b, #135259);
+        color: #f4f4f4;
+      }
+      .about-content {
+  transition: all 0.3s ease;
+}
+
+.about-content:hover {
+  box-shadow: 0 8px 32px rgb(224, 224, 185);
+  backdrop-filter: blur(15px);
+  color: #333333;
+  transition: all 0.3s ease;
+}
+body.dark-mode .about-text {
+  
+  color: #ffffff !important;  /* fixed white text in dark mode */
+}
+/* Dark mode hover */
+body.dark-mode .about-content:hover {
+  color: #f4f4f4; /* light text on dark background */
+  box-shadow: 0 8px 32px rgba(255,255,255,0.2);
+}
+skills-section {
+  padding: 80px 20px;
+  position: relative;
+}
+
+.skills-box {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 20px;
+  
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.skills-box:hover {
+  box-shadow: 0 8px 32px rgb(224, 224, 185);
+  transform: translateY(-5px);
+}
+
+/* Grid layout */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+/* Individual Skill Card */
+.skill-item {
+  text-align: center;
+  background: rgba(255,255,255,0.15);
+  padding: 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  width: 120px;
+}
+
+.skill-item img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.skill-item p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  font-family: cursive;
+}
+
+/* Hover effects */
+.skill-item:hover {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  transform: translateY(-5px);
+}
+
+.skill-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Dark Mode for Skills */
+body.dark-mode .skills-box {
+  background: rgba(30, 30, 30, 0.4);
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 25px rgba(255,255,255,0.1);
+}
+body.dark-mode .skills-box:hover{
+ box-shadow: 0 8px 32px rgba(255,255,255,0.2);
+}
+body.dark-mode .skill-item {
+  background: rgba(255,255,255,0.05);
+}
+
+body.dark-mode .skill-item:hover {
+  box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+}
+
+body.dark-mode .skill-item p {
+  color: #f4f4f4;
+}
+/* Projects Section */
+.projects-section {
+  padding: 80px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px; /* spacing between cards */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Image box */
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* Project info */
+.project-info {
+  padding: 20px;
+  text-align: left;
+  flex: 1;
+}
+
+.project-info h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-family: cursive;
+  color: #fff;
+}
+
+.project-info p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #eee;
+  margin: 10px 0;
+}
+
+.project-info span {
+  font-size: 0.85rem;
+  color: #ccc;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.project-info a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: #df4b83;
+  transition: all 0.3s ease;
+}
+
+.project-info a:hover {
+  background: #f490b6;
+  transform: scale(1.05);
+}
+
+/* Dark Mode */
+body.dark-mode .projects-section {
+  background: rgba(30,30,30,0.4);
+}
+
+body.dark-mode .project-card {
+  background: rgba(50,50,50,0.5);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .project-info h3,
+body.dark-mode .project-info p,
+body.dark-mode .project-info span {
+  color: #f4f4f4;
+}
+
+body.dark-mode .project-info a {
+  background: #df4b83;
+}
+body.dark-mode .project-info a:hover {
+  background: #f490b6;
+}
+/* Contact Section */
+.contact-section {
+  padding: 80px 20px;
+}
+
+.contact-box {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(224,224,185,0.2);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(174, 67, 67, 0.3);
+}
+
+.contact-box:hover {
+  box-shadow: 0 8px 32px rgb(224, 224, 185);
+  transform: translateY(-5px);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 15px;
+  border: 2px solid rgba(174, 67, 67, 0.3);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 16px;
+  font-family: cursive;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #df4b83;
+  background: rgba(255,255,255,0.2);
+}
+
+.contact-btn {
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 2px solid rgba(174, 67, 67, 0.3);
+  background:#1c8694;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  background:#cdcda4;
+  transform: scale(1.05);
+
+}
+
+/* Dark Mode */
+body.dark-mode .contact-box {
+  background: rgba(30,30,30,0.4);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form textarea {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.2);
+  color: #f4f4f4;
+}
+
+body.dark-mode .contact-form input:focus,
+body.dark-mode .contact-form textarea:focus {
+  border-color: #df4b83;
+  background: rgba(255,255,255,0.1);
+}
+
+body.dark-mode .contact-btn {
+  background: #df4b83;
+  border-color: #df4b83;
+}
+
+body.dark-mode .contact-btn:hover {
+  background: #f490b6;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .contact-box {
+    padding: 30px 20px;
+  }
+}
+.contact-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-column {
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.contact-column h2 {
+  font-family: cursive;
+  color: #df4b83;
+  margin-bottom: 15px;
+}
+
+.contact-column h3 {
+  font-family: cursive;
+  color: #df4b83;
+  margin-bottom: 10px;
+}
+
+.contact-column a {
+  display: block;
+  color: #1c8694;
+  text-decoration: none;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.contact-column a:hover {
+  color: #df4b83;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .contact-info-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact-column {
+    flex: 1 1 100%;
+  }
+}
+.simple-footer {
+  background-color: #f8f8f8;
+  color: #333;
+  text-align: center;
+  padding: 15px 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+}
+  </style>
+  </head>
+  <body data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+    <canvas id="particles"></canvas>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand custom-brand ms-4" href="#">Simran Karothiya</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+  <a class="nav-link custom-link" href="#hero">Home</a>
+  <a class="nav-link custom-link" href="#About">About Me</a>
+  <a class="nav-link custom-link" href="#projects">Projects</a>
+  <a class="nav-link custom-link" href="#skills">Skills</a>
+  <a class="nav-link custom-link" href="#contact">Contact</a>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero-section container-fluid">
+      <div class="hero-text">
+        <p class="hero-greeting">HELLO!</p>
+        <h1 class="hero-name"><span id="typing-text"></span></h1>
+        <p class="hero-description">
+          B.Tech CSD @ MITS | Frontend Developer | Passionate about programming <br>and creating responsive websites
+        </p>
+        <a href="#projects" class="btn btn-outline-light visit-btn">Visit My Works</a>
+      </div>
+      <img src="gallery/8.png" class="hero-image img-fluid" alt="Simran Illustration">
+    </div>
+<section id="About" class="about-section" style="padding: 80px 20px;">
+  <h2  class="aos-init aos-animate" data-aos="fade-up"
+  style="text-align:center; font-size: 38px; font-family: cursive; color: #fff; margin-bottom: 50px;">
+    🌿 About Me 🌿
+  </h2>
+
+  <div class="aos-init aos-animate about-content" data-aos="fade-up" style="
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(174, 67, 67, 0.3);
+">
+    
+    <!-- Left Text -->
+    <div class="about-text" style="flex:1 1 400px; min-width: 250px; line-height: 1.6; font-size: 8px;font-family:Verdana, Geneva, Tahoma, sans-serif;">
+      <p>Hi there! I'm Simran Karothiya, a B.Tech student specializing in Computer Science and Design at Madhav Institute of Technology and Science..</p>
+      <p>I am passionate about programming, problem-solving, and web development, with strong interests in Data Structures and Algorithms (DSA) and modern web technologies like HTML, CSS, JavaScript, and React.</p>
+      <p>I enjoy building efficient and scalable applications, designing responsive and user-friendly interfaces, and continuously improving my coding and problem-solving skills.</p>
+    </div>
+
+    <!-- Right Image -->
+    <div class="about-image" style="flex:0 0 250px; text-align:center;">
+      <img src="gallery/91.jpg" alt="Simran" style="width:220px; height:220px; object-fit: cover; border-radius: 50%; box-shadow: 0 6px 15px rgba(0,0,0,0.3); border: 2px solid rgba(244, 75, 131, 0.6);">
+    </div>
+  </div>
+</section>
+<section id="skills" class="skills-section" style="padding: 80px 20px;">
+  <h2 data-aos="fade-up"
+      style="text-align:center; font-size: 38px; font-family: cursive; color: #fff; margin-bottom: 50px;">
+    💻 My Skills 💻
+  </h2>
+
+  <div class="skills-box aos-init aos-animate" data-aos="fade-up"
+       style="max-width: 1000px; margin: 0 auto; padding: 40px;
+              border-radius: 20px;
+              background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(12px);
+              border: 2px solid rgba(174, 67, 67, 0.3);
+">
+    
+
+    <div class="skills-grid">
+      <!-- HTML -->
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+        <p>HTML</p>
+      </div>
+
+      <!-- CSS -->
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+        <p>CSS</p>
+      </div>
+
+      <!-- Bootstrap -->
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+        <p>Bootstrap</p>
+      </div>
+
+      <!-- C -->
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C">
+        <p>C</p>
+      </div>
+
+      <!-- C++ -->
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+        <p>C++</p>
+      </div>
+
+      <!-- GitHub -->
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+        <p>GitHub</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="projects" class="projects-section" style="padding: 80px 20px;">
+  <h2 data-aos="fade-up"
+      style="text-align:center; font-size: 38px; font-family: cursive; color: #fff; margin-bottom: 50px;">
+    🚀 Projects 🚀
+  </h2>
+
+  <div class="projects-grid">
+    <!-- Project 1 -->
+    <div class="project-card" data-aos="fade-up">
+      <img src="gallery/1.png" alt="Project 1">
+      <div class="project-info">
+        <h3>Photography Site
+        </h3>
+        <p>A gallery-based website to showcase photography work. Features responsive image grid, hover effects, and minimalistic design.</p>
+        <span>Tech Used: HTML, CSS, JavaScript</span>
+        <a href="#" target="_blank">🔗 View Project</a>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card" data-aos="fade-up">
+  <img src="gallery/2.png" alt="Spotify App">
+  <div class="project-info">
+    <h3>Spotify Clone</h3>
+    <p>A music streaming web app inspired by Spotify. Play songs, browse playlists, and enjoy smooth UI interactions with responsive design.</p>
+    <span>Tech Used: HTML, CSS, JavaScript</span>
+    <a href="#" target="_blank">🔗 View Project</a>
+  </div>
+</div>
+
+    <!-- Project 3 -->
+    <div class="project-card" data-aos="fade-up">
+  <img src="gallery/clock.jpg" alt="Clock App">
+  <div class="project-info">
+    <h3>Clock App</h3>
+    <p>A dynamic digital clock showing real-time hours, minutes, and seconds with a clean UI and light/dark mode toggle.</p>
+    <span>Tech Used: HTML, CSS, JavaScript</span>
+    <a href="#" target="_blank">🔗 View Project</a>
+  </div>
+</div>
+
+
+
+    <!-- Project 4 -->
+    <div class="project-card" data-aos="fade-up">
+  <img src="gallery/weather.png" alt="Weather App">
+  <div class="project-info">
+    <h3>Weather App</h3>
+    <p>Fetches real-time weather info using API integration. Shows temperature, humidity, and weather conditions with responsive UI.</p>
+    <span>Tech Used: HTML, CSS, JavaScript, API</span>
+    <a href="#" target="_blank">🔗 View Project</a>
+  </div>
+</div>
+
+
+    <!-- Project 5 -->
+    <div class="project-card" data-aos="fade-up">
+  <img src="gallery/personal.png" alt="Portfolio Website">
+  <div class="project-info">
+    <h3>Portfolio Website</h3>
+    <p>My personal responsive portfolio showcasing projects, skills, and achievements. Includes smooth animations and light/dark mode.</p>
+    <span>Tech Used: HTML, CSS, JavaScript</span>
+    <a href="#" target="_blank">🔗 View Project</a>
+  </div>
+</div>
+    <!-- Project 6 -->
+    <div class="project-card" data-aos="fade-up">
+      <img src="gallery/cal.png" alt="Project 6">
+      <div class="project-info">
+        <h3>Calculator App</h3>
+        <p>AA sleek and interactive calculator app with smooth button animations and keyboard support for quick calculations.</p>
+        <span>Tech Used: HTML, CSS, JS</span>
+        <a href="#" target="_blank">🔗 View Project</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="contact" class="contact-section" style="padding: 80px 20px;">
+  <h2 data-aos="fade-up"
+      style="text-align:center; font-size: 30px; font-family: cursive; color: #fff; margin-bottom: 20px;">
+    🌿 Keep In Touch 🌿
+  </h2>
+  <p data-aos="fade-up" style="text-align:center; color:#fff; font-family: cursive; font-size: 18px; max-width: 700px; margin: 0 auto 40px auto;">
+   
+    Just write your message in the form given below & hit that Submit Button.
+  </p>
+
+  <div class="contact-box aos-init aos-animate" data-aos="fade-up">
+    <form class="contact-form">
+      <div class="form-group">
+        <input type="text" placeholder="Your Name" required>
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Your Email" required>
+      </div>
+      <div class="form-group">
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="contact-btn">Send Message</button>
+    </form>
+  </div>
+</section>
+<!-- Contact Info Links Template -->
+<!-- Contact Info Links -->
+<div class="contact-info-row mb-4">
+  <!-- Your Name / Title -->
+  <div class="contact-column">
+    <h2>Simran Karothiya</h2>
+  </div>
+
+  <!-- Contact Links -->
+  <div class="contact-column">
+    <h3>Contact</h3>
+    <a href="mailto:simrankarothiya768@gmail.com" target="_blank">Email</a>
+    <a href="https://www.linkedin.com/in/simran-karothiya-184420327/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/simrankarothiya" target="_blank">GitHub</a>
+  </div>
+
+  <!-- Other Links -->
+  <div class="contact-column">
+    <h3>Links</h3>
+    <a href="https://www.codechef.com/users/simrank1" target="_blank">Codechef</a>
+    <a href="https://www.codechef.com/users/simrank1" target="_blank">Leetcode</a>
+    
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="contact-column">
+    <h3>Navigation</h3>
+    <a href="#home">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
+<footer class="simple-footer">
+  <p>© 2025 Simran Karothiya. All rights reserved.</p>
+  <p> "Thanks for visiting my portfolio. Let’s build something amazing together." </p>
+</footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Typing effect
+      const typingText = "I am Simran Karothiya 👋";
+      let i = 0;
+      function typeWriter() {
+        if (i < typingText.length) {
+          document.getElementById("typing-text").innerHTML += typingText.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      }
+      typeWriter();
+
+      // Theme toggle
+      const toggleBtn = document.getElementById('themeToggle');
+      toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+      });
+
+      // Particles effect
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+
+      const particles = Array.from({length: 30}, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        opacity: Math.random() * 0.5 + 0.5,
+        dOpacity: Math.random() * 0.02 + 0.01
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+          ctx.fill();
+
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+          p.opacity += p.dOpacity;
+          if (p.opacity > 1 || p.opacity < 0.3) p.dOpacity *= -1;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+      
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js" class="__web-inspector-hide-shortcut__"></script>
+
+
+<script>
+    AOS.init();
+    console.log(AOS.init())
+ </script>
+  </body>
+</html>

@@ -127,7 +127,7 @@
       .hero-image { flex: 1 1 300px; max-width: 550px; width: 100%; border-radius: 20px; transition: transform 0.4s; }
       .hero-image:hover { transform: scale(1.05); }
 
-      /* Responsive */
+      
       @media (max-width: 992px) {
         .hero-section { flex-direction: column; text-align: center; }
         .hero-greeting, .hero-name, .hero-description, .visit-btn { margin-left: 0; }
@@ -223,11 +223,11 @@
 }
 body.dark-mode .about-text {
   
-  color: #ffffff !important;  /* fixed white text in dark mode */
+  color: #ffffff !important;  
 }
-/* Dark mode hover */
+
 body.dark-mode .about-content:hover {
-  color: #f4f4f4; /* light text on dark background */
+  color: #f4f4f4; 
   box-shadow: 0 8px 32px rgba(255,255,255,0.2);
 }
 skills-section {
@@ -251,7 +251,7 @@ skills-section {
   transform: translateY(-5px);
 }
 
-/* Grid layout */
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -259,7 +259,7 @@ skills-section {
   justify-items: center;
 }
 
-/* Individual Skill Card */
+
 .skill-item {
   text-align: center;
   background: rgba(255,255,255,0.15);
@@ -284,7 +284,7 @@ skills-section {
   font-family: cursive;
 }
 
-/* Hover effects */
+
 .skill-item:hover {
   background: rgba(255,255,255,0.25);
   box-shadow: 0 6px 18px rgba(0,0,0,0.3);
@@ -295,7 +295,7 @@ skills-section {
   transform: scale(1.1);
 }
 
-/* Dark Mode for Skills */
+
 body.dark-mode .skills-box {
   background: rgba(30, 30, 30, 0.4);
   border: 2px solid rgba(255,255,255,0.15);
@@ -583,9 +583,47 @@ body.dark-mode .contact-btn:hover {
   font-size: 14px;
   border-top: 1px solid #ddd;
 }
+/* Preloader covers full screen */
+/* Preloader fullscreen black */
+/* Preloader fullscreen black */
+#preloader {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg, #0c2d2e 0%, #1a1a1a 50%, #340c22 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+/* Greeting text style */
+.greeting-text {
+  color:white;
+  font-size:48px;
+  font-weight:bold;
+ font-family: cursive;
+  text-align:center;
+  animation: blink 1s infinite;
+}
+
+/* simple blinking effect */
+@keyframes blink {
+  0%, 50%, 100% { opacity:1; }
+  25%, 75% { opacity:0; }
+}
+
   </style>
   </head>
   <body data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+   
+   
+  <div id="preloader">
+  <div class="greeting-text">Hello!</div>
+</div>
+  <div id="main-content" style="display:none;"></div>
     <canvas id="particles"></canvas>
     <nav id ="home"class="navbar navbar-expand-lg custom-navbar" >
       <div class="container-fluid">
@@ -805,8 +843,7 @@ body.dark-mode .contact-btn:hover {
     </form>
   </div>
 </section>
-<!-- Contact Info Links Template -->
-<!-- Contact Info Links -->
+
 <div class="contact-info-row mb-4">
   <!-- Your Name / Title -->
   <div class="contact-column">
@@ -848,6 +885,36 @@ body.dark-mode .contact-btn:hover {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // Typing effect
+      
+
+   window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    const mainContent = document.getElementById('main-content');
+    const greetingText = document.querySelector('.greeting-text');
+
+ 
+    const greetings = ["Hello!", "Namaste!", "Bonjour!", "Hola!"];
+    let index = 0;
+
+   
+    const greetingInterval = setInterval(() => {
+      index = (index + 1) % greetings.length;
+      greetingText.textContent = greetings[index];
+    }, 2000);
+
+    
+    setTimeout(() => {
+      clearInterval(greetingInterval);  
+      preloader.style.opacity = '0';
+      preloader.style.transition = 'opacity 0.5s ease';
+
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        mainContent.style.display = 'block';
+      }, 500);
+    }, 8000); 
+  });
+
       const typingText = "I am Simran Karothiya 👋";
       let i = 0;
       function typeWriter() {
